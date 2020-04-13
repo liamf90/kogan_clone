@@ -75,4 +75,45 @@ class  Product constructor(
         return categoriesSpan
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Product
+
+        if (productId != other.productId) return false
+        if (title != other.title) return false
+        if (description != other.description) return false
+        if (brand != other.brand) return false
+        if (department != other.department) return false
+        if (category != other.category) return false
+        if (isKoganFirstEligible != other.isKoganFirstEligible) return false
+        if (freeShipping != other.freeShipping) return false
+        if (leavesWarehouse != other.leavesWarehouse) return false
+        if (price != other.price) return false
+        if (oldPrice != other.oldPrice) return false
+        if (htmlSectionUrlsMap != other.htmlSectionUrlsMap) return false
+        if (imageUrl != other.imageUrl) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = productId
+        result = 31 * result + title.hashCode()
+        result = 31 * result + description.hashCode()
+        result = 31 * result + brand.hashCode()
+        result = 31 * result + department.hashCode()
+        result = 31 * result + category.hashCode()
+        result = 31 * result + isKoganFirstEligible.hashCode()
+        result = 31 * result + freeShipping.hashCode()
+        result = 31 * result + leavesWarehouse.hashCode()
+        result = 31 * result + price.hashCode()
+        result = 31 * result + (oldPrice?.hashCode() ?: 0)
+        result = 31 * result + (htmlSectionUrlsMap?.hashCode() ?: 0)
+        result = 31 * result + (imageUrl?.hashCode() ?: 0)
+        return result
+    }
+
+
 }

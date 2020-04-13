@@ -63,7 +63,7 @@ class ShoppingCartListAdapter :
     private class ShoppingCartItemDiffCallback : DiffUtil.ItemCallback<ShoppingCartOrderItem>() {
 
         override fun areItemsTheSame(oldItem: ShoppingCartOrderItem, newItem: ShoppingCartOrderItem): Boolean {
-            return oldItem == newItem
+            return oldItem.shopping_cart_id == newItem.shopping_cart_id
         }
 
         override fun areContentsTheSame(oldItem: ShoppingCartOrderItem, newItem: ShoppingCartOrderItem): Boolean {

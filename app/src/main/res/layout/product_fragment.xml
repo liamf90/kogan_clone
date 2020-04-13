@@ -401,6 +401,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/descriptionHeader" />
 
+
                 <LinearLayout
                     android:id="@+id/specificationsHeader"
                     android:layout_width="0dp"
@@ -425,6 +426,7 @@
                         android:id="@+id/specificationsArrowImageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
                         android:layout_weight="0"
                         android:src="@drawable/ic_keyboard_arrow_right_24px" />
                 </LinearLayout>
@@ -436,6 +438,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/specificationsHeader" />
