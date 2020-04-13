@@ -4,8 +4,10 @@ import androidx.lifecycle.*
 import com.liamfarrell.android.koganclone.api.KoganApiService
 import com.liamfarrell.android.koganclone.data.DeliveryRepository
 import com.liamfarrell.android.koganclone.data.ShoppingCartRepository
+import com.liamfarrell.android.koganclone.model.AsyncTaskResult
 import com.liamfarrell.android.koganclone.model.Product
-import com.liamfarrell.android.koganclone.model.delivery.DeliveryPriceResult
+import com.liamfarrell.android.koganclone.model.delivery.DeliveryCostApiDeserializerPOJO
+import com.liamfarrell.android.koganclone.model.delivery.FreightProtectionCostApiDeserializerPOJO
 import com.liamfarrell.android.koganclone.model.shoppingcart.ShoppingCartOrderItem
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -110,13 +112,13 @@ class ShoppingCartViewModel @Inject constructor(shoppingCartRepository: Shopping
             if (deliveryPriceResult.error != null){
                 _caughtError.value = deliveryPriceResult.error
             } else {
-                _deliveryPrice.value = deliveryPriceResult.price
+                _deliveryPrice.value = deliveryPriceResult.result?.delivery_cost
             }
 
             if (freightProtectPriceResult.error != null){
                 _caughtError.value = freightProtectPriceResult.error
             } else {
-                _freightProtectionPrice.value = freightProtectPriceResult.price
+                _freightProtectionPrice.value = freightProtectPriceResult.result?.freight_protection_cost
             }
 
             calculateTotalPrice()
@@ -131,7 +133,7 @@ class ShoppingCartViewModel @Inject constructor(shoppingCartRepository: Shopping
             if (deliveryPriceResult.error != null){
                 _caughtError.value = deliveryPriceResult.error
             } else {
-                _deliveryPrice.value = deliveryPriceResult.price
+                _deliveryPrice.value = deliveryPriceResult.result?.delivery_cost
             }
 
             calculateTotalPrice()
@@ -139,7 +141,7 @@ class ShoppingCartViewModel @Inject constructor(shoppingCartRepository: Shopping
         }
     }
 
-    private suspend fun getDeliveryPrice() : DeliveryPriceResult {
+    private suspend fun getDeliveryPrice() : AsyncTaskResult<DeliveryCostApiDeserializerPOJO?> {
         val productList = mutableListOf<Product>()
         items.value?.forEach {
             for (i in 1..it.itemCount){
@@ -149,7 +151,7 @@ class ShoppingCartViewModel @Inject constructor(shoppingCartRepository: Shopping
         return deliveryRepository.getDeliveryPrice(productList, tryKoganFirstSelected.value ?: false)
     }
 
-    private suspend fun getFreightProtectionPrice() : DeliveryPriceResult {
+    private suspend fun getFreightProtectionPrice() : AsyncTaskResult<FreightProtectionCostApiDeserializerPOJO?> {
         val productList = mutableListOf<Product>()
         items.value?.forEach {
             for (i in 1..it.itemCount){

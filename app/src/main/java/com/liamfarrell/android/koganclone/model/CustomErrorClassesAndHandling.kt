@@ -1,10 +1,12 @@
 package com.liamfarrell.android.koganclone.model
 
 import android.content.Context
+import java.net.UnknownHostException
 
 
 fun getErrorMessage(context: Context, error: Exception): String {
     return when (error) {
+        is UnknownHostException -> "No Internet Connection"
         is CustomError -> error.getErrorToastMessage(context)
         else -> "An unknown error has occurred"//context.getString(R.string.server_error_toast)
     }
@@ -24,7 +26,6 @@ class InternalSqlException : CustomError(){
 
 class ApiException(val code: Int) : CustomError(){
     override fun getErrorToastMessage(context: Context): String {
-        return "An connection error has occurred. Code: $code"
-        //return context.getString("")
+        return "An API error has occurred. Code: $code"
     }
 }

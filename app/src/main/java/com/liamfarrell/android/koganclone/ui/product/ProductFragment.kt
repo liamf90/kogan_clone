@@ -24,6 +24,7 @@ import com.liamfarrell.android.koganclone.di.Injectable
 import com.liamfarrell.android.koganclone.model.Product
 import com.liamfarrell.android.koganclone.model.SliderItem
 import com.liamfarrell.android.koganclone.model.addItemToCartCallback
+import com.liamfarrell.android.koganclone.model.getErrorMessage
 import com.liamfarrell.android.koganclone.ui.activity.OpenCloseBottomNavigation
 import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.product_fragment.*
@@ -76,6 +77,10 @@ class ProductFragment : Fragment(), Injectable, BaseSliderView.OnSliderClickList
 
         viewModel.spinner.observe(viewLifecycleOwner, Observer {
             binding.spinner = it
+        })
+
+        viewModel.caughtError.observe(viewLifecycleOwner, Observer {
+            it?.let{Toast.makeText(context, getErrorMessage(requireContext(), it), Toast.LENGTH_SHORT).show()}
         })
     }
 
