@@ -13,8 +13,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.liamfarrell.android.koganclone.R
-import com.liamfarrell.android.koganclone.adapters.*
+import com.liamfarrell.android.koganclone.adapters.CurrentDealsAndPopularCategoriesListAdapter
+import com.liamfarrell.android.koganclone.adapters.FeaturedBrandsListAdapter
+import com.liamfarrell.android.koganclone.adapters.HeaderListAdapter
+import com.liamfarrell.android.koganclone.adapters.TrendingProductsPagedListAdapter
 import com.liamfarrell.android.koganclone.di.Injectable
+import com.liamfarrell.android.koganclone.model.getErrorMessage
 import com.liamfarrell.android.koganclone.model.homescreen.HomeScreenItems
 import com.liamfarrell.android.koganclone.ui.activity.OpenCloseBottomNavigation
 import com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator
@@ -66,7 +70,7 @@ class HomeFragment : Fragment(), Injectable {
         homeViewModel.notifications.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
 
         homeViewModel.networkErrors.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            it?.let{Toast.makeText(context, getErrorMessage(requireContext(), it), Toast.LENGTH_SHORT).show()}
         })
     }
 

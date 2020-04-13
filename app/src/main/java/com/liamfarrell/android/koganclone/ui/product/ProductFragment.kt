@@ -7,7 +7,6 @@ import android.util.DisplayMetrics
 import android.view.*
 import android.view.animation.*
 import android.webkit.WebChromeClient
-import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -26,7 +25,6 @@ import com.liamfarrell.android.koganclone.model.SliderItem
 import com.liamfarrell.android.koganclone.model.addItemToCartCallback
 import com.liamfarrell.android.koganclone.model.getErrorMessage
 import com.liamfarrell.android.koganclone.ui.activity.OpenCloseBottomNavigation
-import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.product_fragment.*
 import javax.inject.Inject
 
@@ -111,13 +109,12 @@ class ProductFragment : Fragment(), Injectable, BaseSliderView.OnSliderClickList
         addToCartConstraintLayout.visibility = View.INVISIBLE
         ghostItemImageView.visibility = View.VISIBLE
 
-
         val displayMetrics = DisplayMetrics()
         activity!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
 
-        val animationToBottom = AnimationSet(true)
-        animationToBottom.interpolator = AccelerateInterpolator()
+        val animationToShoppingCart = AnimationSet(true)
+        animationToShoppingCart.interpolator = AccelerateInterpolator()
 
         val scaleToBottomAnimation = ScaleAnimation(
             1.toFloat(),
@@ -126,17 +123,17 @@ class ProductFragment : Fragment(), Injectable, BaseSliderView.OnSliderClickList
             0.1.toFloat()
         )
         scaleToBottomAnimation.duration = 1000
-        animationToBottom.addAnimation(scaleToBottomAnimation)
+        animationToShoppingCart.addAnimation(scaleToBottomAnimation)
 
         val translateToShoppingCartAnimation = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.ABSOLUTE, width.toFloat(), Animation.RELATIVE_TO_SELF, 0f, Animation.ABSOLUTE, 0f)
         translateToShoppingCartAnimation.duration = 1000
         translateToShoppingCartAnimation.zAdjustment = Animation.ZORDER_TOP
 
-        animationToBottom.addAnimation(translateToShoppingCartAnimation)
+        animationToShoppingCart.addAnimation(translateToShoppingCartAnimation)
         val alphaToBottom = AlphaAnimation(0.8.toFloat(), 0.toFloat())
         alphaToBottom.duration = 1000
-        animationToBottom.addAnimation(alphaToBottom)
-        animationToBottom.setAnimationListener(object: Animation.AnimationListener{
+        animationToShoppingCart.addAnimation(alphaToBottom)
+        animationToShoppingCart.setAnimationListener(object: Animation.AnimationListener{
             override fun onAnimationRepeat(animation: Animation?) {}
             override fun onAnimationStart(animation: Animation?) {}
             override fun onAnimationEnd(animation: Animation?) {
@@ -145,7 +142,7 @@ class ProductFragment : Fragment(), Injectable, BaseSliderView.OnSliderClickList
                 animationCompleteCallback()
             }
         })
-        ghostItemImageView.startAnimation(animationToBottom)
+        ghostItemImageView.startAnimation(animationToShoppingCart)
 
     }
 

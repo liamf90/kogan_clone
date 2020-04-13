@@ -1,11 +1,8 @@
 package com.liamfarrell.android.koganclone.ui.activity
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Query
-import com.liamfarrell.android.koganclone.data.NotificationRepository
 import com.liamfarrell.android.koganclone.data.ShoppingCartRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

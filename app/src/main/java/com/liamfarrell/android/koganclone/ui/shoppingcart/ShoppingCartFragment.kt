@@ -6,7 +6,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,6 @@ import com.liamfarrell.android.koganclone.databinding.FragmentShoppingCartBindin
 import com.liamfarrell.android.koganclone.di.Injectable
 import com.liamfarrell.android.koganclone.model.getErrorMessage
 import com.liamfarrell.android.koganclone.ui.activity.OpenCloseBottomNavigation
-import timber.log.Timber
 import javax.inject.Inject
 
 

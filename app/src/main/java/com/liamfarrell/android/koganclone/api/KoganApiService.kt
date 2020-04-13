@@ -1,6 +1,6 @@
 package com.liamfarrell.android.koganclone.api
 
-import com.liamfarrell.android.koganclone.model.*
+import com.liamfarrell.android.koganclone.model.Product
 import com.liamfarrell.android.koganclone.model.delivery.DeliveryCostApiDeserializerPOJO
 import com.liamfarrell.android.koganclone.model.delivery.FreightProtectionCostApiDeserializerPOJO
 import com.liamfarrell.android.koganclone.model.notification.NotificationCountApiDeserializerPOJO
@@ -8,7 +8,10 @@ import com.liamfarrell.android.koganclone.model.notification.NotificationListApi
 import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductPageApiDeserializerPOJO
 import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductUpdateCount
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 /**

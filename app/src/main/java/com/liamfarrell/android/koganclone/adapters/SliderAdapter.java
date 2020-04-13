@@ -2,17 +2,16 @@ package com.liamfarrell.android.koganclone.adapters;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.liamfarrell.android.koganclone.R;
 import com.liamfarrell.android.koganclone.model.SliderItem;
 import com.smarteist.autoimageslider.SliderViewAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 

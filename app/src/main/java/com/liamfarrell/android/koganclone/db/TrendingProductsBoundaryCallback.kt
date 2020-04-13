@@ -1,8 +1,10 @@
 package com.liamfarrell.android.koganclone.db
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.liamfarrell.android.koganclone.api.KoganApiService
 import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductDb
+import com.liamfarrell.android.koganclone.util.executeRestApiFunction
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +17,8 @@ import timber.log.Timber
 class TrendingProductsBoundaryCallback(
     private val coroutineScope: CoroutineScope,
     private val koganApiService: KoganApiService,
-    private val trendingProductDao: TrendingProductDao
+    private val trendingProductDao: TrendingProductDao,
+    private val networkErrors : MutableLiveData<Exception>
 ) : PagedList.BoundaryCallback<TrendingProductDb>() {
 
 
@@ -33,17 +36,20 @@ class TrendingProductsBoundaryCallback(
             // Get next page from db
             if (nextPage != null) {
                 //Get next page from koganServiceApi
-                val nextPageProductList = koganApiService.getTrendingProductList(nextPage).execute()
+                val nextPageProductListResult = executeRestApiFunction(koganApiService.getTrendingProductList(nextPage))
+                if (nextPageProductListResult.error == null){
+                    val productDbList = nextPageProductListResult.result?.products?.map {
+                        TrendingProductDb(
+                            it
+                        )
+                    }
 
-                val productDbList = nextPageProductList.body()?.products?.map {
-                    TrendingProductDb(
-                        it
-                    )
+                    val nextPageUpdate = nextPageProductListResult.result?.nextPage
+                    //update trending product dao with new values (nextPage + List<trendingProductDb>
+                    productDbList?.let {trendingProductDao.insertNewPage(productDbList, nextPageUpdate) }
+                } else {
+                    networkErrors.postValue(nextPageProductListResult.error)
                 }
-
-                val nextPageUpdate = nextPageProductList.body()?.nextPage
-                //update trending product dao with new values (nextPage + List<trendingProductDb>
-                productDbList?.let {trendingProductDao.insertNewPage(productDbList, nextPageUpdate) }
             }
             else {
                 //no more items

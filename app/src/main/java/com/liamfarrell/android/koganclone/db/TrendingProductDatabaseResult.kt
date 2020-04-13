@@ -10,5 +10,5 @@ import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProduct
  */
 data class TrendingProductDatabaseResult(
     val data: LiveData<PagedList<TrendingProductDb>>,
-    val networkErrors: LiveData<String>
+    val networkErrors: LiveData<Exception>
 )

@@ -1,7 +1,6 @@
 package com.liamfarrell.android.koganclone.model.notification
 
 import android.text.format.DateUtils
-import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

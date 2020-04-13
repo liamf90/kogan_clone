@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.liamfarrell.android.koganclone.api.KoganApiService
 import com.liamfarrell.android.koganclone.data.ProductRepository
 import com.liamfarrell.android.koganclone.data.ShoppingCartRepository
 import com.liamfarrell.android.koganclone.model.Product
@@ -40,8 +39,6 @@ class ProductViewModel @Inject constructor(private val shoppingCartRepository: S
                 }
                 _spinner.postValue(false)
             }
-
-
     }
 
 }

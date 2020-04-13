@@ -21,7 +21,6 @@ import com.liamfarrell.android.koganclone.ui.home.HomeFragment
 import com.liamfarrell.android.koganclone.ui.notifications.NotificationsFragment
 import com.liamfarrell.android.koganclone.ui.product.ProductFragment
 import com.liamfarrell.android.koganclone.ui.shoppingcart.ShoppingCartFragment
-import com.liamfarrell.android.koganclone.ui.shoppingcart.ShoppingCartViewModel
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

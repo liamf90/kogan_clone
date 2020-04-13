@@ -2,7 +2,6 @@ package com.liamfarrell.android.koganclone.ui.activity
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +23,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import timber.log.Timber
 import javax.inject.Inject
-
 
 
 interface OpenCloseBottomNavigation{

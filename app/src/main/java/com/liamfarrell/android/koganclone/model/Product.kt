@@ -7,9 +7,7 @@ import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
-import androidx.room.Entity
 import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.liamfarrell.android.koganclone.R
 import timber.log.Timber

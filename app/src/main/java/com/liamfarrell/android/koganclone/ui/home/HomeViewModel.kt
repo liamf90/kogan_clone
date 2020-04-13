@@ -17,7 +17,7 @@ class HomeViewModel @Inject constructor(val trendingProductRepository: TrendingP
 
     private val trendingProductsResult = MutableLiveData<TrendingProductDatabaseResult>()
     val notifications: LiveData<PagedList<TrendingProductDb>> = Transformations.switchMap(trendingProductsResult) { it.data }
-    val networkErrors: LiveData<String> = Transformations.switchMap(trendingProductsResult) { it -> it.networkErrors }
+    val networkErrors: LiveData<Exception> = Transformations.switchMap(trendingProductsResult) { it -> it.networkErrors }
 
     private val _spinner = MediatorLiveData<Boolean>()
     val spinner : LiveData<Boolean> = _spinner
@@ -33,13 +33,6 @@ class HomeViewModel @Inject constructor(val trendingProductRepository: TrendingP
     }
 
 
-    fun checkForUpdates(){
-        viewModelScope.launch {
-            _spinner.value = true
-            trendingProductRepository.checkForUpdates()
-            _spinner.value = false
-        }
-    }
 
     /**
      * Cancel all coroutines when the ViewModel is cleared.

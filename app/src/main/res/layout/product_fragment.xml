@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text='@{"@string/was " + String.format("$%.2f", product.oldPrice)}'
+                    android:text='@{@string/was(product.oldPrice)}'
                     android:visibility="@{product.oldPrice != null ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/priceTextView"
                     app:layout_constraintStart_toEndOf="@+id/priceTextView"

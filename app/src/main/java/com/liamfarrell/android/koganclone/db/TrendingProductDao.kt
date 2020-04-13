@@ -2,8 +2,8 @@ package com.liamfarrell.android.koganclone.db
 
 import androidx.paging.DataSource
 import androidx.room.*
-import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductUpdateCount
 import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductDb
+import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductUpdateCount
 
 
 /**

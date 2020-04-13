@@ -9,5 +9,5 @@ import androidx.paging.PagedList
  */
 data class NotificationsDatabaseResult(
     val data: LiveData<PagedList<Notification>>,
-    val networkErrors: LiveData<String>
+    val networkErrors: LiveData<Exception>
 )

@@ -57,7 +57,7 @@
     <string name="buy_now">BUY NOW</string>
     <string name="see_delivery_information">See delivery information</string>
     <string name="free_shipping_with">Free shipping with</string>
-    <string name="was">was</string>
+    <string name="was">Was $%1$.2f</string>
     <string name="additional_points_may_be_earned_during_promotional_periods_t_amp_c_s_apply"><![CDATA[Additional points may be earned during promotional periods. T&C\'s apply]]></string>
     <string name="kogan_dot_com_has_a_direct_partnership_with_qantas">Kogan.com has a direct partnership with Qantas</string>
     <string name="qantas_points">Qantas Points</string>
@@ -65,4 +65,8 @@
     <string name="specifications">Specifications</string>
     <string name="cart_toolbar">Cart</string>
 
+    <!-- Errors-->
+    <string name="api_error">An API error has occurred. Code: %1$d</string>
+    <string name="connection_error">No Internet Connection</string>
+    <string name="unknown">An unknown error has occurred</string>
 </resources>

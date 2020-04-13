@@ -17,7 +17,7 @@ class NotificationsViewModel @Inject constructor(private val notificationsReposi
 
     private val notificationsResult = MutableLiveData<NotificationsDatabaseResult>()
     val notifications: LiveData<PagedList<Notification>> = Transformations.switchMap(notificationsResult) { it.data }
-    val networkErrors: LiveData<String> = Transformations.switchMap(notificationsResult) { it -> it.networkErrors }
+    val networkErrors: LiveData<Exception> = Transformations.switchMap(notificationsResult) { it -> it.networkErrors }
 
     private val _spinner = MediatorLiveData<Boolean>()
     val spinner : LiveData<Boolean> = _spinner

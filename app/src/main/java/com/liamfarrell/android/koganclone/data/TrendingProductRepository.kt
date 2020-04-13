@@ -3,15 +3,16 @@ package com.liamfarrell.android.koganclone.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
-import kotlinx.coroutines.withContext
 import com.liamfarrell.android.koganclone.api.KoganApiService
 import com.liamfarrell.android.koganclone.db.TrendingProductDao
-import com.liamfarrell.android.koganclone.db.TrendingProductsBoundaryCallback
 import com.liamfarrell.android.koganclone.db.TrendingProductDatabaseResult
+import com.liamfarrell.android.koganclone.db.TrendingProductsBoundaryCallback
 import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductDb
+import com.liamfarrell.android.koganclone.util.executeRestApiFunction
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,13 +22,13 @@ class TrendingProductRepository @Inject constructor(
     private val trendingProductDao: TrendingProductDao
 )
 {
-    private val _networkErrors = MutableLiveData<String>()
+    private val _networkErrors = MutableLiveData<Exception>()
 
     private val _spinner = MutableLiveData<Boolean>()
     val spinner : LiveData<Boolean> = _spinner
 
     // LiveData of network errors.
-    val networkErrors: LiveData<String>
+    val networkErrors: LiveData<Exception>
         get() = _networkErrors
 
 
@@ -47,7 +48,8 @@ class TrendingProductRepository @Inject constructor(
             TrendingProductsBoundaryCallback(
                 coroutineScope,
                 koganApiService,
-                trendingProductDao
+                trendingProductDao,
+                _networkErrors
             )
 
         // Get the paged list
@@ -69,18 +71,18 @@ class TrendingProductRepository @Inject constructor(
     suspend fun checkForUpdates(){
         withContext(Dispatchers.IO) {
             //get notification count from server
-            val trendingProductsCountResponse = koganApiService.getTrendingProductUpdateCount().execute()
-            if (trendingProductsCountResponse.isSuccessful) {
-                val trendingProductsUpdateCountServer = trendingProductsCountResponse.body()?.trending_products_update_count
+            val trendingProductsCountResponse = executeRestApiFunction(koganApiService.getTrendingProductUpdateCount())
+            if (trendingProductsCountResponse.error == null) {
+                val trendingProductsUpdateCountServer = trendingProductsCountResponse.result?.trending_products_update_count
                 val trendingProductsUpdateCountDevice = trendingProductDao.getTrendingProductCount()
 
                 //if notification count on server does not equal the notifications count on device database,
                 //then update the notifications list from the server
                 if (trendingProductsUpdateCountServer != trendingProductsUpdateCountDevice) {
                     _spinner.postValue(true)
-                    val trendingProductsToAddRequest = koganApiService.getTrendingProductList(1).execute()
-                    if (trendingProductsToAddRequest.isSuccessful) {
-                        val trendingProductsApiCallBody = trendingProductsToAddRequest.body()
+                    val trendingProductsToAddRequest = executeRestApiFunction(koganApiService.getTrendingProductList(1))
+                    if (trendingProductsToAddRequest.error == null) {
+                        val trendingProductsApiCallBody = trendingProductsToAddRequest.result
                         val trendingProductsToAdd = trendingProductsApiCallBody?.products
                         val nextPage = trendingProductsApiCallBody?.nextPage
                         val trendingProductsDbList = trendingProductsToAdd?.map {product ->
@@ -92,12 +94,12 @@ class TrendingProductRepository @Inject constructor(
                         _spinner.postValue(false)
                     } else {
                         _spinner.postValue(false)
-                        _networkErrors.postValue("API Connection Error")
+                        _networkErrors.postValue(trendingProductsToAddRequest.error)
                     }
                 }
             } else {
                 _spinner.postValue( false)
-                _networkErrors.postValue("API Connection Error")
+                _networkErrors.postValue(trendingProductsCountResponse.error)
             }
         }
     }
