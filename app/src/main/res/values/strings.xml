@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Kogan Clone</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_more">More</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="complete_action_using">Complete action using</string>
+    <string name="thankyou_for_feedback">Thankyou for your feedback</string>
+    <string name="no_email_clients">There are no email clients installed</string>
+    <string name="home_category">Home</string>
+
+
+    <!-- Menu Items-->
+    <string name="search">Search</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="share">Share</string>
+
+    <!-- More Menu Title Names -->
+    <string name="my_account">My Account</string>
+    <string name="saved_addresses_payment_info_notification_preferences">Saved Addresses, Payment Info, Notification Preferences</string>
+    <string name="order_history">Order History</string>
+    <string name="shopping">Shopping</string>
+    <string name="shop_by_department">Shop By Department</string>
+    <string name="shop_by_brands">Shop By Brands</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="cart">Cart</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="privacy">Privacy</string>
+    <string name="contact_customer_care">Contact Customer Care</string>
+    <string name="help_improve_this_app">Help improve this App</string>
+
+
+    <!-- Shopping Cart -->
+    <string name="try_kogan_first">Try Kogan first for free and Get Free Shipping*</string>
+    <string name="terms_and_conditions">*FREE for 14 days on eligible products in select areas. $11.99 per 30 days after 14 day free trial. I have read and accepted the <a href="https://www.kogan.com/au/kogan-first-terms-conditions/">Terms &amp; Conditions</a></string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="quantity">Quantity</string>
+    <string name="checkout">CHECKOUT</string>
+    <string name="delivery_to_3121">Delivery to 3121</string>
+    <string name="info_i">i</string>
+    <string name="add_extended_care">Add Extended Care</string>
+    <string name="freight_protection">Freight Protection</string>
+    <string name="total_excl_delivery">TOTAL (EXCL. DELIVERY)</string>
+    <string name="free_shipping">Free shipping</string>
+    <string name="there_are_no_items_in_your_cart">There are no items in your cart</string>
+    <string name="continue_shopping">CONTINUE SHOPPING</string>
+
+    <!-- Home Fragment-->
+    <string name="current_deals">Current Deals</string>
+    <string name="popular_categories">Popular Categories</string>
+    <string name="featured_brands">Featured Brands</string>
+    <string name="trending_products">Trending Products</string>
+    <string name="qantas_points_amount">Login or Sign-up to earn an extra %1$d Qantas Points on this purchase</string>
+
+    <!-- Product Fragment-->
+    <string name="buy_now">BUY NOW</string>
+    <string name="see_delivery_information">See delivery information</string>
+    <string name="free_shipping_with">Free shipping with</string>
+    <string name="was">was</string>
+    <string name="additional_points_may_be_earned_during_promotional_periods_t_amp_c_s_apply"><![CDATA[Additional points may be earned during promotional periods. T&C\'s apply]]></string>
+    <string name="kogan_dot_com_has_a_direct_partnership_with_qantas">Kogan.com has a direct partnership with Qantas</string>
+    <string name="qantas_points">Qantas Points</string>
+    <string name="description">Description</string>
+    <string name="specifications">Specifications</string>
+    <string name="cart_toolbar">Cart</string>
+
+</resources>

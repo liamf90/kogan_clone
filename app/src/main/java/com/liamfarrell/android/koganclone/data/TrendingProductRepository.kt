@@ -1,0 +1,117 @@
+package com.liamfarrell.android.koganclone.data
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
+import kotlinx.coroutines.withContext
+import com.liamfarrell.android.koganclone.api.KoganApiService
+import com.liamfarrell.android.koganclone.db.TrendingProductDao
+import com.liamfarrell.android.koganclone.db.TrendingProductsBoundaryCallback
+import com.liamfarrell.android.koganclone.db.TrendingProductDatabaseResult
+import com.liamfarrell.android.koganclone.model.trendingproducts.TrendingProductDb
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class TrendingProductRepository @Inject constructor(
+    private val koganApiService: KoganApiService,
+    private val trendingProductDao: TrendingProductDao
+)
+{
+    private val _networkErrors = MutableLiveData<String>()
+
+    private val _spinner = MutableLiveData<Boolean>()
+    val spinner : LiveData<Boolean> = _spinner
+
+    // LiveData of network errors.
+    val networkErrors: LiveData<String>
+        get() = _networkErrors
+
+
+
+    fun loadAllTrendingProducts(coroutineScope: CoroutineScope) : TrendingProductDatabaseResult {
+
+        // Get data source factory from the local cache
+        val dataSourceFactory = trendingProductDao.getAllTrendingProducts()
+
+
+        // every new query creates a new BoundaryCallback
+        // The BoundaryCallback will observe when the user reaches to the edges of
+        // the list and update the database with extra data
+
+        //val boundaryCallback = TrendingProductsBoundaryCallback (trendingProductsManager,coroutineScope)
+        val boundaryCallback =
+            TrendingProductsBoundaryCallback(
+                coroutineScope,
+                koganApiService,
+                trendingProductDao
+            )
+
+        // Get the paged list
+        val data = LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
+            .setBoundaryCallback(boundaryCallback)
+            .build()
+
+        // Get the network errors exposed by the boundary callback
+        return TrendingProductDatabaseResult(
+            data,
+            networkErrors
+        )
+    }
+
+
+    /**
+     * Checks if the trending product list has been updated. If it has, deletes the list from the Room Database and re inserts it
+     */
+    suspend fun checkForUpdates(){
+        withContext(Dispatchers.IO) {
+            //get notification count from server
+            val trendingProductsCountResponse = koganApiService.getTrendingProductUpdateCount().execute()
+            if (trendingProductsCountResponse.isSuccessful) {
+                val trendingProductsUpdateCountServer = trendingProductsCountResponse.body()?.trending_products_update_count
+                val trendingProductsUpdateCountDevice = trendingProductDao.getTrendingProductCount()
+
+                //if notification count on server does not equal the notifications count on device database,
+                //then update the notifications list from the server
+                if (trendingProductsUpdateCountServer != trendingProductsUpdateCountDevice) {
+                    _spinner.postValue(true)
+                    val trendingProductsToAddRequest = koganApiService.getTrendingProductList(1).execute()
+                    if (trendingProductsToAddRequest.isSuccessful) {
+                        val trendingProductsApiCallBody = trendingProductsToAddRequest.body()
+                        val trendingProductsToAdd = trendingProductsApiCallBody?.products
+                        val nextPage = trendingProductsApiCallBody?.nextPage
+                        val trendingProductsDbList = trendingProductsToAdd?.map {product ->
+                            TrendingProductDb(
+                                product
+                            )
+                        }
+                        trendingProductsDbList?.let { trendingProductsUpdateCountServer?.let{trendingProductDao.newTrendingProductList( trendingProductsDbList, trendingProductsUpdateCountServer,nextPage) }}
+                        _spinner.postValue(false)
+                    } else {
+                        _spinner.postValue(false)
+                        _networkErrors.postValue("API Connection Error")
+                    }
+                }
+            } else {
+                _spinner.postValue( false)
+                _networkErrors.postValue("API Connection Error")
+            }
+        }
+    }
+
+
+    fun deleteTrendingProducts(coroutineScope: CoroutineScope){
+        coroutineScope.launch(Dispatchers.IO) {
+            trendingProductDao.deleteTrendingProducts()
+        }
+    }
+
+
+
+    companion object {
+        private const val DATABASE_PAGE_SIZE = 10
+    }
+}

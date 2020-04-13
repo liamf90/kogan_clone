@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/more_menu_navifation"
+    app:startDestination="@id/moreMenuFragment">
+
+    <dialog
+        android:id="@+id/editOrderItemQuantityDialog"
+        android:name="com.liamfarrell.android.koganclone.ui.shoppingcart.EditOrderItemQuantityDialog"
+        android:label="EditOrderItemQuantityDialog" />
+    <fragment
+        android:id="@+id/moreMenuFragment"
+        android:name="com.liamfarrell.android.koganclone.ui.menu.MoreMenuFragment"
+        android:label="MoreMenuFragment" >
+        <action
+            android:id="@+id/action_moreMenuFragment_to_shoppingCartFragment4"
+            app:destination="@id/shoppingCartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingCartFragment"
+        android:name="com.liamfarrell.android.koganclone.ui.shoppingcart.ShoppingCartFragment"
+        android:label="ShoppingCartFragment" >
+        <action
+            android:id="@+id/action_shoppingCartFragment_to_editOrderItemQuantityDialog"
+            app:destination="@id/editOrderItemQuantityDialog">
+            <argument
+                android:name="productId"
+                app:argType="integer" />
+            <argument
+                android:name="initialProductCount"
+                app:argType="integer" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+            <argument
+                android:name="imageUrl"
+                app:argType="string" />
+        </action>
+    </fragment>
+</navigation>

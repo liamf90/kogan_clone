@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type= "com.liamfarrell.android.koganclone.ui.shoppingcart.ShoppingCartViewModel" />
+
+        <import type="android.view.View"/>
+    </data>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="@{viewModel.items != null &amp;&amp; viewModel.items.size() != 0 ? View.VISIBLE : View.GONE}">
+
+        <include
+            android:id="@+id/includeToolbar"
+            layout="@layout/toolbar_no_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/checkoutButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeToolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/windowBackground">
+
+                <ProgressBar
+                    android:id="@+id/initialisationProgressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="30dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="@{viewModel.initialising ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/totalPriceConstraintLayout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/items_in_cart_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/includeToolbar" />
+
+                <TextView
+                    android:id="@+id/deliveryToTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/delivery_to_3121"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/items_in_cart_list" />
+
+                <TextView
+                    android:id="@+id/deliveryPriceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text='@{viewModel.deliveryPrice != null ? (viewModel.deliveryPrice != 0.00 ? String.format("$%.2f", viewModel.deliveryPrice) : "FREE") : null}'
+                    android:textColor="@{viewModel.deliveryPrice != null &amp;&amp; viewModel.deliveryPrice != 0.00 ? @color/colorAccent : @color/colorPrimary}"
+                    android:visibility="@{viewModel.updateInProgress == false ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/deliveryToTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/locationIconImageView"
+                    app:layout_constraintTop_toTopOf="@+id/deliveryToTextView"
+                    tools:text="$88.98" />
+
+                <ImageView
+                    android:id="@+id/koganFirstImageView"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deliveryToTextView"
+                    app:srcCompat="@drawable/kogan_first" />
+
+                <TextView
+                    android:id="@+id/termsAndConditionsTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/terms_and_conditions"
+                    android:textColorLink="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
+
+                <TextView
+                    android:id="@+id/koganFirstInfoTextView"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/kogan_first_information_shape"
+                    android:gravity="center"
+                    android:text="@string/info_i"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/koganFirstImageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/koganFirstImageView" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/line_divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/termsAndConditionsTextView" />
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:checked="@={viewModel.tryKoganFirstSelected}"
+                    android:text="@string/try_kogan_first"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/koganFirstImageView" />
+
+                <ImageView
+                    android:id="@+id/locationIconImageView"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:tint="@color/menu_icon_fill"
+                    android:visibility="@{viewModel.deliveryPrice != null &amp;&amp; viewModel.deliveryPrice != 0.00 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/deliveryToTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/deliveryToTextView"
+                    app:srcCompat="@drawable/ic_location_on_24px" />
+
+                <ProgressBar
+                    android:id="@+id/deliveryPriceProgressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="@{viewModel.updateInProgress ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/deliveryToTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/locationIconImageView"
+                    app:layout_constraintTop_toTopOf="@+id/deliveryToTextView" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/totalPriceConstraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="60dp"
+                    android:visibility="@{viewModel.initialising ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1">
+
+                    <TextView
+                        android:id="@+id/addExtendedCareTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/add_extended_care"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/addExtendedCareInfoTextView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:background="@drawable/kogan_first_information_shape"
+                        android:gravity="center"
+                        android:text="@string/info_i"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/addExtendedCareTextView"
+                        app:layout_constraintStart_toEndOf="@+id/addExtendedCareTextView" />
+
+                    <ImageView
+                        android:id="@+id/addExtendedCareArrowIconImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:tint="@color/menu_icon_fill"
+                        app:layout_constraintBottom_toTopOf="@+id/divider2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_keyboard_arrow_right_24px" />
+
+                    <Switch
+                        android:id="@+id/freightProtectionSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:checked="@={viewModel.freightProtectionSelected}"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/freightProtectionTotalAmount"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/freightProtectionTotalAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text='@{viewModel.freightProtectionPrice != null ? String.format("$%.2f", viewModel.freightProtectionPrice) : null}'
+                        app:layout_constraintBaseline_toBaselineOf="@+id/freightProtectionInfoImageView"
+                        app:layout_constraintEnd_toStartOf="@+id/freightProtectionSwitch"
+                        tools:text="$6.99" />
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/line_divider"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/addExtendedCareTextView" />
+
+                    <TextView
+                        android:id="@+id/freightProtectionInfoImageView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:background="@drawable/kogan_first_information_shape"
+                        android:gravity="center"
+                        android:text="@string/info_i"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/freightProtectionTextView"
+                        app:layout_constraintStart_toEndOf="@+id/freightProtectionTextView" />
+
+                    <TextView
+                        android:id="@+id/freightProtectionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:text="@string/freight_protection"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+                    <TextView
+                        android:id="@+id/totalExclDeliveryTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/total_excl_delivery"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/freightProtectionTextView" />
+
+                    <TextView
+                        android:id="@+id/totalPriceTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:text='@{viewModel.totalPrice != null ? String.format("$%.2f", viewModel.totalPrice) : null}'
+                        android:textColor="@android:color/black"
+                        android:visibility="@{viewModel.updateInProgress == false ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/totalExclDeliveryTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="$40.99" />
+
+                    <ProgressBar
+                        android:id="@+id/totalPricePriceProgressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="@{viewModel.updateInProgress ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@+id/totalExclDeliveryTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/totalExclDeliveryTextView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/checkoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/checkout_button"
+            android:gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:paddingEnd="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/checkout"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/includeNoItemsLayout"
+        layout="@layout/no_items_shopping_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:visibility="gone"
+        android:visibility="@{(viewModel.items == null || viewModel.items.size() != 0 ) ? View.GONE : View.VISIBLE}" />
+</FrameLayout>
+
+</layout>

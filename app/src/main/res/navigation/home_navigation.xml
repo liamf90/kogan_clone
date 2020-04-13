@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <dialog
+        android:id="@+id/editOrderItemQuantityDialog"
+        android:name="com.liamfarrell.android.koganclone.ui.shoppingcart.EditOrderItemQuantityDialog"
+        android:label="EditOrderItemQuantityDialog" >
+    </dialog>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.liamfarrell.android.koganclone.ui.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_shoppingCartFragment3"
+            app:destination="@id/shoppingCartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productFragment"
+            app:destination="@id/productFragment">
+            <argument
+                android:name="productId"
+                app:argType="integer"
+                />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingCartFragment"
+        android:name="com.liamfarrell.android.koganclone.ui.shoppingcart.ShoppingCartFragment"
+        android:label="ShoppingCartFragment" >
+        <action
+            android:id="@+id/action_shoppingCartFragment_to_editOrderItemQuantityDialog"
+            app:destination="@id/editOrderItemQuantityDialog">
+            <argument
+                android:name="productId"
+                app:argType="integer" />
+            <argument
+                android:name="initialProductCount"
+                app:argType="integer" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+            <argument
+                android:name="imageUrl"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.liamfarrell.android.koganclone.ui.product.ProductFragment"
+        android:label="productFragment"
+        tools:layout="@layout/product_fragment" />
+</navigation>

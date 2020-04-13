@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/toolbar_logo"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:adjustViewBounds="true"
+        android:src="@drawable/tap_to_sign_in" />
+
+    <LinearLayout
+        android:id="@+id/accountMenuLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/menu_padding"
+        android:paddingEnd="0dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_account" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_title_margin_start"
+            android:layout_marginTop="@dimen/menu_title_margin_top"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/menu_title_text_size"
+                android:text="@string/my_account" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:textSize="@dimen/menu_extra_info_text_size"
+                android:text="@string/saved_addresses_payment_info_notification_preferences" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/line_divider_menu_small" />
+
+
+    <LinearLayout
+        android:id="@+id/orderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_order" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_title_margin_start"
+            android:layout_marginTop="@dimen/menu_title_margin_top"
+            android:layout_marginBottom = "@dimen/menu_title_margin_bottom"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_text_size"
+            android:text="@string/order_history" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/line_divider_menu_medium" />
+
+    <FrameLayout
+        android:layout_marginStart="@dimen/menu_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginTop="@dimen/menu_title_margin_top"
+        android:layout_marginBottom = "@dimen/menu_title_margin_bottom"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/menu_title_no_icon_text_size"
+        android:text="@string/shopping" />
+    </FrameLayout>
+
+    <include
+        layout="@layout/line_divider_menu_small" />
+
+    <LinearLayout
+        android:id="@+id/shopByDepartmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_shop_by_department" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_title_margin_start"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom = "8dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_text_size"
+            android:text="@string/shop_by_department" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/line_divider_menu_small" />
+
+    <LinearLayout
+        android:id="@+id/shopByBrandsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_shop_by_brands" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_title_margin_start"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom = "8dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_text_size"
+            android:text="@string/shop_by_brands" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/line_divider_menu_small" />
+
+    <LinearLayout
+        android:id="@+id/wishListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_wishlist" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_title_margin_start"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom = "8dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_text_size"
+            android:text="@string/wishlist" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/line_divider_menu_small" />
+
+    <LinearLayout
+        android:id="@+id/shoppingCartLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_cart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/menu_title_margin_start"
+            android:layout_marginTop="@dimen/menu_title_margin_top"
+            android:layout_marginBottom = "@dimen/menu_title_margin_bottom"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_text_size"
+            android:text="@string/cart" />
+    </LinearLayout>
+    <include
+        layout="@layout/line_divider_menu_medium" />
+
+    <FrameLayout
+        android:id="@+id/termsAndConditionsLayout"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/menu_title_margin_top"
+            android:layout_marginBottom = "@dimen/menu_title_margin_bottom"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_no_icon_text_size"
+            android:text="@string/terms_amp_conditions" />
+    </FrameLayout>
+    <include
+        layout="@layout/line_divider_menu_small" />
+
+    <FrameLayout
+        android:id="@+id/privacyLayout"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/menu_title_margin_top"
+            android:layout_marginBottom = "@dimen/menu_title_margin_bottom"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_no_icon_text_size"
+            android:text="@string/privacy" />
+    </FrameLayout>
+    <include
+        layout="@layout/line_divider_menu_small" />
+    <FrameLayout
+        android:id="@+id/contactCustomerCareLayout"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/menu_title_margin_top"
+            android:layout_marginBottom = "@dimen/menu_title_margin_bottom"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_no_icon_text_size"
+            android:text="@string/contact_customer_care" />
+    </FrameLayout>
+    <include
+        layout="@layout/line_divider_menu_small" />
+    <FrameLayout
+        android:id="@+id/helpImproveAppLayout"
+        android:layout_marginStart="@dimen/menu_padding"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/menu_title_margin_top"
+            android:layout_marginBottom = "@dimen/menu_title_margin_bottom"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/menu_title_no_icon_text_size"
+            android:text="@string/help_improve_this_app" />
+    </FrameLayout>
+    <include
+        layout="@layout/line_divider_menu_small" />
+
+</LinearLayout>

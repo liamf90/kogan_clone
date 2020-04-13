@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/productImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cold_weather_essentials" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productImageView"
+        tools:text="Kogan EC 65 Wireless Active Noise Cancelling Headphones" />
+
+    <TextView
+        android:id="@+id/quantityTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/quantity"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/decreaseCountButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <TextView
+        android:id="@+id/numberTextView"
+        android:layout_width="@dimen/qantity_number_text_view_width"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/decreaseCountButton"
+        app:layout_constraintEnd_toStartOf="@+id/increaseCountButton"
+        app:layout_constraintTop_toTopOf="@+id/decreaseCountButton"
+        tools:text="3" />
+
+    <ImageButton
+        android:id="@+id/decreaseCountButton"
+        android:layout_width="@dimen/decrease_and_increase_count_button_width"
+        android:layout_height="@dimen/decrease_and_increase_count_button_height"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:tint="@color/up_down_icon_fill"
+        app:layout_constraintBottom_toBottomOf="@+id/quantityTextView"
+        app:layout_constraintEnd_toStartOf="@+id/numberTextView"
+        app:layout_constraintTop_toTopOf="@+id/quantityTextView"
+        app:srcCompat="@drawable/chevron_down" />
+
+    <ImageButton
+        android:id="@+id/increaseCountButton"
+        android:layout_width="@dimen/decrease_and_increase_count_button_width"
+        android:layout_height="@dimen/decrease_and_increase_count_button_height"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:background="@android:color/transparent"
+        android:tint="@color/up_down_icon_fill"
+        app:layout_constraintBottom_toBottomOf="@+id/numberTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/numberTextView"
+        app:srcCompat="@drawable/chevron_up" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
