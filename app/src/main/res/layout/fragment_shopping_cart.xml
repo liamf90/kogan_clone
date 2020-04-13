@@ -50,7 +50,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:visibility="@{viewModel.initialising ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{viewModel.updatingTotalPrice ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/totalPriceConstraintLayout" />
 
@@ -61,7 +61,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/includeToolbar" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/deliveryToTextView"
@@ -173,7 +173,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="60dp"
-                    android:visibility="@{viewModel.initialising ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.updatingTotalPrice ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

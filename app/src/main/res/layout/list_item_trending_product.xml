@@ -97,7 +97,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_kogan_trending_icon"
+                android:background="@drawable/bg_border_kogan_seller_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleTextView"
                 android:padding="1dp"

@@ -16,7 +16,7 @@
         android:tag="layout/lit_item_shopping_cart_item_0">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/productImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"

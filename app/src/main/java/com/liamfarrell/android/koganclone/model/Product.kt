@@ -23,7 +23,7 @@ class  Product constructor(
     @Ignore val category: String = "",
     @SerializedName("kogan_first") var isKoganFirstEligible: Boolean = false,
     @SerializedName("free_shipping") var freeShipping:Boolean = false,
-    @SerializedName("leaves_warehouse") @Ignore var leavesWarehouse: String = "",
+    @SerializedName("leaves_warehouse") var leavesWarehouse: String = "",
     var price: Double = 0.00,
     @SerializedName("was_price") var oldPrice: Double? = null,
     @SerializedName("html_section_urls")  @Ignore var htmlSectionUrlsMap: Map<String, String>? = null,

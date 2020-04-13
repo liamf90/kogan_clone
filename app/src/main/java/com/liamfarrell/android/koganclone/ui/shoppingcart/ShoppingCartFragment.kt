@@ -3,6 +3,7 @@ package com.liamfarrell.android.koganclone.ui.shoppingcart
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
@@ -16,6 +17,7 @@ import com.liamfarrell.android.koganclone.R
 import com.liamfarrell.android.koganclone.adapters.ShoppingCartListAdapter
 import com.liamfarrell.android.koganclone.databinding.FragmentShoppingCartBinding
 import com.liamfarrell.android.koganclone.di.Injectable
+import com.liamfarrell.android.koganclone.model.getErrorMessage
 import com.liamfarrell.android.koganclone.ui.activity.OpenCloseBottomNavigation
 import timber.log.Timber
 import javax.inject.Inject
@@ -53,6 +55,10 @@ class ShoppingCartFragment : Fragment(), Injectable {
     private fun subscribeUi(adapter: ShoppingCartListAdapter){
         viewModel.items.observe(viewLifecycleOwner, Observer {
           adapter.submitList(it)
+        })
+
+        viewModel.caughtError.observe(viewLifecycleOwner, Observer {
+            it?.let{Toast.makeText(context, getErrorMessage(requireContext(), it), Toast.LENGTH_SHORT).show()}
         })
     }
 

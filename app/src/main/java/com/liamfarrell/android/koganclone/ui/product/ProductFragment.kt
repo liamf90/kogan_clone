@@ -52,7 +52,11 @@ class ProductFragment : Fragment(), Injectable, BaseSliderView.OnSliderClickList
         binding.slider.setSliderAdapter(adapter)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.addToCartButton.root.setOnClickListener  {
-            shoppingCartAddImageAnimation()
+            shoppingCartAddImageAnimation{
+                //on animation complete callback
+                viewModel.addItemToShoppingCart()
+                (activity as addItemToCartCallback).onItemAddedToCart()
+            }
             Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show()
         }
         binding.categoriesTextView.movementMethod = LinkMovementMethod.getInstance()
@@ -98,7 +102,7 @@ class ProductFragment : Fragment(), Injectable, BaseSliderView.OnSliderClickList
         }
     }
 
-    private fun shoppingCartAddImageAnimation(){
+    private fun shoppingCartAddImageAnimation(animationCompleteCallback: ()->Unit){
         addToCartConstraintLayout.visibility = View.INVISIBLE
         ghostItemImageView.visibility = View.VISIBLE
 
@@ -133,8 +137,7 @@ class ProductFragment : Fragment(), Injectable, BaseSliderView.OnSliderClickList
             override fun onAnimationEnd(animation: Animation?) {
                 ghostItemImageView.visibility = View.GONE
                 addToCartConstraintLayout.visibility = View.VISIBLE
-                viewModel.addItemToShoppingCart()
-                (activity as addItemToCartCallback).onItemAddedToCart()
+                animationCompleteCallback()
             }
         })
         ghostItemImageView.startAnimation(animationToBottom)
