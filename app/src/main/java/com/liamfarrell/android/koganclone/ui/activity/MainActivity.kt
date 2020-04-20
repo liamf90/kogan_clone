@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, Injectable, OpenCl
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: MainViewModel
-    private lateinit var shoppingCartMenuLayout : ConstraintLayout
+    private lateinit var shoppingCartMenuLayout : View
     private lateinit var navView : BottomNavigationView
 
 
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, Injectable, OpenCl
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.action_bar_menu, menu)
-        shoppingCartMenuLayout = menu!!.findItem(R.id.navigation_shopping_cart).actionView.findViewById(R.id.badge_layout1)
+        shoppingCartMenuLayout = menu!!.findItem(R.id.navigation_shopping_cart).actionView
         shoppingCartMenuLayout.setOnClickListener {
             Timber.i("Shopping Cart Menu Item On Click")
             when(bottomNavViewSelectedFragment){
